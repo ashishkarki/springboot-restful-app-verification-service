@@ -17,7 +17,7 @@
 		}
 		
 		function verifyToken(tokenValue) {
-			$.get('http://localhost:8080/spring-boot-app/users/email-verification', {token: tokenValue})
+			$.get('http://ec2-52-90-114-121.compute-1.amazonaws.com:8080/spring-boot-app/users/email-verification', {token: tokenValue})
 			.done(function (response) {
 				 if (response["operationResult"] === "SUCCESS")
 		            {
