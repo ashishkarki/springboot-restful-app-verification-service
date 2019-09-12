@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Email Verification Service</title>
+
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js">
+	
+</script>
+
+<script type="text/javascript">
+	$(document).ready(function() {
+		var urlParams = new URLSearchParams(location.search);
+		if (urlParams.has('token')) {
+			verifyToken(urlParams.get('token'));
+		}
+		
+		function verifyToken(tokenValue) {
+			$.get('http://localhost:8080/spring-boot-app/users/email-verification', {token: tokenValue})
+			.done(function (response) {
+				 if (response["operationResult"] === "SUCCESS")
+		            {
+		                $("#not-successful-result").attr( "style", "display: none !important;" ); 
+		                $("#successful-result").attr( "style", "display: block !important;" ); 
+		                
+		            } else {
+		                $("#successful-result").attr( "style", "display: none !important;" ); 
+		                $("#not-successful-result").attr( "style", "display: block !important;" ); 
+		            }
+			});
+		}
+	});
+</script>
+</head>
+<body>
+	<div id="successful-result" style="display: none">Successful
+		verification</div>
+	<div id="not-successful-result" style="display: none">Verification
+		link has expired</div>
+</body>
+</html>
